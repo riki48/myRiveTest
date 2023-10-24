@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lottie-web/5.12.2/lottie.min.js"></script>
+    <style>
+      .parent-container {
+        width: 500px; /* Adjust as needed */
+        height: 500px; /* Adjust as needed, 100vh means 100% of the viewport height */
+        position: relative; /* To make sure the child element is positioned relative to this container */
+        overflow: hidden; /* Ensure that the animation doesn't overflow the container */
+      }
+
+      .lottie-animation {
+        position: absolute; /* Position the animation element absolutely within the parent container */
+        width: 100%; /* Fill the entire width of the parent container */
+        height: 100%; /* Fill the entire height of the parent container */
+      }
+    </style>
+  </head>
+  <body>
+    <div class="parent-container">
+      <div class="lottie-animation"></div>
+    </div>
+    <!-- <div id="fps-display" style="position: absolute;left: 0;
+    top:150px;">FPS: <span id="fps-value">0</span></div> -->
+
+    <button id="btn">Click</button>
+    <script>
+      var animation = bodymovin.loadAnimation({
+        container: document.querySelector(".lottie-animation"),
+        path: "test2.json",
+        renderer: "canvas",
+        autoplay: true,
+        loop: true,
+      });
+      function logFPS() {
+        let fpsValue = document.getElementById("fps-value");
+        let frameCount = 0;
+        let lastTime = performance.now();
+
+        function updateFPS() {
+          const currentTime = performance.now();
+          frameCount++;
+
+          if (currentTime - lastTime >= 1000) {
+            const fps = frameCount;
+            fpsValue.textContent = fps;
+            frameCount = 0;
+            lastTime = currentTime;
+          }
+
+          requestAnimationFrame(updateFPS);
+        }
+
+        requestAnimationFrame(updateFPS);
+      }
+
+      // Start logging FPS when the page loads
+      // window.addEventListener('load', logFPS);
+    </script>
+  </body>
+</html>

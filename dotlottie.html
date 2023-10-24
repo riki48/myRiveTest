@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script type="module" src="https://unpkg.com/@dotlottie/player-component@2.3.0/dist/dotlottie-player.mjs" ></script>
+</head>
+<body>
+    <dotlottie-player
+  autoplay
+  loop
+  mode="normal"
+  src="planet.lottie"
+  style="width: 500px"
+>
+</dotlottie-player>
+    <div id="fps-display" style="position: absolute;left: 0;
+    top:150px;">FPS: <span id="fps-value">0</span></div>
+
+    <script>
+ function logFPS() {
+            let fpsValue = document.getElementById('fps-value');
+            let frameCount = 0;
+            let lastTime = performance.now();
+
+            function updateFPS() {
+                const currentTime = performance.now();
+                frameCount++;
+
+                if (currentTime - lastTime >= 1000) {
+                    const fps = frameCount;
+                    fpsValue.textContent = fps;
+                    frameCount = 0;
+                    lastTime = currentTime;
+                }
+
+                requestAnimationFrame(updateFPS);
+            }
+
+            requestAnimationFrame(updateFPS);
+        }
+
+        // Start logging FPS when the page loads
+        window.addEventListener('load', logFPS);
+    </script>
+</body>
+</html>

@@ -1,0 +1,41 @@
+<html>
+  <head>
+    <title>Rive Hello World</title>
+    <style>
+      body {
+        margin: 0;
+        padding: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <canvas id="canvas" width="900" height="900"></canvas>
+    <button style="position: relative; z-index: 10" id="btn">Click me</button>
+
+    <script src="https://unpkg.com/@rive-app/canvas@2.6.0"></script>
+    <script>
+      const canvas = document.querySelector("canvas");
+      const r = new rive.Rive({
+        src: "orbit.riv",
+        canvas: document.querySelector("#canvas"),
+        autoplay: true,
+        stateMachines: "orbit",
+        layout: new rive.Layout({
+          fit: rive.Fit.Cover,
+        }),
+        useOffscreenRenderer: false,
+        onLoad: () => {
+          r.enableFPSCounter();
+          r.resizeDrawingSurfaceToCanvas();
+          console.log(r)
+        },
+      });
+
+      setTimeout(() => {
+        r.resizeDrawingSurfaceToCanvas()
+        console.log('resize')
+      }, 5000)
+
+    </script>
+  </body>
+</html>
